@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Main thread by default. **Apply** improvements — do not only report them. Do not push, commit, or open a PR.
+Apply the **blade spine**. Main thread for apply loops. **Apply** improvements — do not only report them. Do not push, commit, or open a PR. If local conventions for the touched surface are unknown, a focused `scout` (patterns/tokens/helpers) before Round 1. **Budget mode:** main thread only.
 
 ## Scope
 

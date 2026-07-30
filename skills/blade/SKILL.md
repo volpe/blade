@@ -57,25 +57,26 @@ If work fits **one card**, `/blade-project` must refuse project ceremony and off
 
 ### Subagents
 
-Spawn only when one of these is true:
+**Default: unconstrained.** Use as many subagents as useful for work that (a) **reduces main-thread context**, or (b) **can run in parallel** without waiting on another spawn. No fixed scout cap. Parent synthesizes; do not spawn overlapping missions.
 
-| Condition | Action |
+| Use subagents for | How |
 |---|---|
-| Unknown blast radius / “where does X live?” | 1–2× `scout` (parallel ok) |
-| Main context is fat / multi-area implement | Fresh `general-purpose` with a self-contained brief |
-| Non-trivial diff before ship | 1× `critic` |
-| Auth, secrets, uploads, permissions | `critic` with security emphasis |
-| Ship tend (CI / review fixes) | 1× `general-purpose` with `isolation: "worktree"` |
+| Locate / research legs | **N× `scout`** (or explore) in parallel — one focused mission each (entry points, patterns, tests, risks, auth, …). Read-only fan-out is unconstrained. |
+| Fat / multi-area implement | **One** `general-purpose` with a self-contained brief (or main thread). **Writers stay serial** on the shared checkout — never parallel implementers. Worktrees only for ship tend. |
+| Non-trivial review | `critic` (main context stays clean); security emphasis for auth/secrets/uploads/permissions |
+| Ship tend (CI / review fixes) | **One** `general-purpose` + `isolation: "worktree"` |
 
-**Never** spawn for: card writing, PR body, Linear status, one-file edits you already understand.
+**Budget mode** — when the user signals constrained tokens/compute (`budget`, `cheap`, `constrained`, `token budget`, `main thread only`, `don’t spawn`): cap scouts at 1–2, prefer main thread, skip nice-to-have fan-out.
 
-Prefer Grok built-ins (`explore`, `plan`, `general-purpose`) when plugin agents are unavailable; use plugin `scout` / `critic` when present.
+**Still never spawn for:** pure Linear status, PR body from known facts, one-file edits you already understand, card prose with no codebase research.
+
+Prefer plugin `scout` / `critic` when present; else Grok `explore` / `plan` / `general-purpose`.
 
 ### Artifacts & resume
 
 - Default durable surfaces: **chat + Linear + PR**.
 - No ledgers, no `thoughts/` paths.
-- Worktrees only where a verb requires isolation (**ship tend** fixes). Everywhere else: main thread.
+- Worktrees only for **ship tend** (isolated writer). Everywhere else: main thread. Parallel **writers** are never allowed on the shared checkout; parallel **readers** (scouts/`critic`) are fine.
 - Resume = re-read Linear (if any) + `git status` + recent commits + open PR.
 
 ### Output contract

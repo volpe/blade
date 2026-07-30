@@ -61,6 +61,8 @@ grok plugin details blade
 /blade help
 ```
 
+**Updating a path install:** `git -C ~/dev/blade pull`, then reload plugins (`r` in `/plugins`). If skills look stale, re-run `grok plugin install ~/dev/blade --trust` and `grok plugin enable blade`.
+
 ```bash
 # uninstall
 grok plugin uninstall blade
@@ -84,7 +86,7 @@ you   →  /blade-release          # when green
 
 ```text
 you   →  /blade-plan ENG-1234 add export CSV for invoices
-blade →  scouts the code, options, phased plan in chat
+blade →  parallel scouts, options, phased plan in chat
 you   →  approve
 you   →  /blade-build
 blade →  implements against the plan
@@ -173,14 +175,14 @@ Most tools stop at “PR opened.” Blade **ships and tends**.
 
 ## Agents
 
-Spawned only when they pay off — not for every keystroke.
+**Default: fan out readers.** Parallel scouts/`critic` when it cuts main-thread context — one focused mission per scout, no fixed cap. **Writers stay serial** on the shared checkout (one implementer or main thread). Throttle with **budget** / **cheap** / **main thread only** (1–2 scouts).
 
 | Agent | Role |
 |---|---|
-| `scout` | Read-only locate/trace → `file:line` map |
+| `scout` | Read-only focused locate/trace → compact `file:line` map + hand-offs (spawn N in parallel) |
 | `critic` | Blocking / Should-fix / Nits + ship verdict |
 
-Ship tend uses a worktree `general-purpose` agent so your main checkout stays clean.
+Ship tend uses a worktree `general-purpose` agent so the main checkout stays clean.
 
 ---
 
@@ -189,6 +191,7 @@ Ship tend uses a worktree `general-purpose` agent so your main checkout stays cl
 - **Linear** — your existing MCP; thin status/comments, no second auth path  
 - **Plans** — chat only by default (persist only if you ask)  
 - **Right-size** — typo? just fix. multi-area? plan first  
+- **Subagents** — unconstrained fan-out by default; **budget mode** on request  
 - **Confirm the irreversible** — push, PR, merge, Linear Done always ask first  
 - **Durable surfaces** — chat + Linear + PR (no ledgers, no thoughts/ ceremony)  
 - **Output contract** — every verb ends **Done** / **Blocked** / **Needs you** + one next action  
@@ -273,10 +276,10 @@ blade/
 
 ## Philosophy in one line
 
-**Plan when it matters. Build on the main thread. Confirm the irreversible. Tend until green. Release on purpose.**
+**Plan when it matters. Build small on the main thread. Confirm the irreversible. Tend until green. Release on purpose.**
 
 ```text
-     ⚔  blade  ·  v0.4  ·  ship sharp
+     ⚔  blade  ·  v0.5  ·  ship sharp
 ```
 
 ---

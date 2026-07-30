@@ -20,7 +20,7 @@ Single-file, behavior-preserving trivia → say **trivial — build directly** w
 ## Steps
 
 1. **Load intent** — fetch Linear ticket if an id is present; otherwise use `$ARGUMENTS` + thread.
-2. **Explore** — if blast radius is unknown, spawn up to **2× `scout` in parallel** (e.g. similar features + touch points/risks). If scope is already obvious, read the few files yourself.
+2. **Explore** — if blast radius is unknown or multi-area, spawn **N× `scout` in parallel**, one focused mission each (entry points, patterns, tests, risks, auth, …). No fixed cap; no overlapping missions. If scope is already obvious, read the few files yourself. **Budget mode:** 1–2 scouts or main-thread reads.
 3. **Ground** — read the key files scouts cite; do not plan from summaries alone.
 4. **Options** — present **1–2** approaches with trade-offs and a clear recommendation. Not three for sport.
 5. **Plan (chat)** — phased only if useful:

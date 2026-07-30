@@ -11,12 +11,13 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Main thread only — no subagents.
+Apply the **blade spine**. Main thread for prose and Linear writes. Spawn `scout` only when the card needs real file/system paths; skip pure product wording.
 
 ## Steps
 
 1. Gather intent from `$ARGUMENTS`, the thread, and any named ticket (fetch via Linear MCP if an id is present).
-2. Draft a **scannable** issue (create or update):
+2. If Hints need accurate paths and they are unknown, focused `scout`(s). **Budget mode:** skip or 1.
+3. Draft a **scannable** issue (create or update):
 
 ```markdown
 ## Problem / outcome
@@ -33,9 +34,9 @@ Apply the **blade spine**. Main thread only — no subagents.
 - files/systems if already known — never invent paths
 ```
 
-3. **Confirm** title + body if creating new or making material edits. Trivial typo fixes on an existing card may apply directly.
-4. Create or update via Linear MCP. Keep description short; put design debate in comments only if needed.
-5. Return issue id + URL.
+4. **Confirm** title + body if creating new or making material edits. Trivial typo fixes on an existing card may apply directly.
+5. Create or update via Linear MCP. Keep description short; put design debate in comments only if needed.
+6. Return issue id + URL.
 
 ## Output
 
