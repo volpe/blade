@@ -21,7 +21,7 @@ If this is clearly **one card** of work, refuse project ceremony. Say so and off
 ## Steps
 
 1. **Clarify** outcome, constraints, and success in ≤3 questions if needed. Otherwise proceed.
-2. **Scout only if slice boundaries depend on the codebase** — at most one `scout`. Skip if pure product scope.
+2. **Scout when slice boundaries depend on the codebase** — parallel `scout`s for independent legs (modules, existing features, test layout). Skip if pure product scope. **Budget mode:** 0–1 scout.
 3. **Propose (dry-run)** before writing to Linear:
    - Project name + one-line purpose
    - 2–5 milestones (outcomes, not chores)

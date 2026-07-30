@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Prefer spawning **`critic`** so main context stays clean. If `critic` is unavailable, review on the main thread with the same rubric.
+Apply the **blade spine**. Prefer **`critic`** so main context stays clean. If blast radius is unclear, parallel focused `scout`s (callers, tests, auth) before or alongside critic. If `critic` is unavailable, same rubric on the main thread. **Budget mode:** critic only (or main-thread review).
 
 ## Scope
 
