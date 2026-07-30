@@ -1,53 +1,74 @@
 # blade
 
 ```text
-          ░▒▓█  B L A D E  █▓▒░
-     ─────────────────────────────────
-      ╱|、
-    (˚ˎ 。7     ship fast.
-     |、˜〵      stay sharp.
-     じしˍ,)ノ   no tank required.
+      ╔══════════════════════════════════════════════════════╗
+      ║                                                      ║
+      ║     刃  B L A D E                                    ║
+      ║     ───────────────────────────────────              ║
+      ║                                                      ║
+      ║       ／|、                                          ║
+      ║     (˚ˎ。7     lightweight PE workflow for Grok      ║
+      ║      |、˜〵     one command · ten verbs · real PRs   ║
+      ║      じしˍ,)ノ                                       ║
+      ║                                                      ║
+      ║     ████████████████████████████████████▓▒░¤         ║
+      ║     └ tsuba ┘└──────── blade ──────────┘ tip        ║
+      ║                                                      ║
+      ║            plan · build · ship · release             ║
+      ║                                                      ║
+      ╚══════════════════════════════════════════════════════╝
 ```
 
-**Lightweight product-engineering workflow for [Grok](https://x.ai).**  
-One sword, ten verbs — from Linear card to green PR without a lifecycle OS.
+A **Grok** plugin for the product-engineering loop: plan → build → review → ship → release.
 
-> Not a tank. Not a second project manager.  
-> **Blade** is the PE loop you actually run every day: plan → build → review → ship → release.
+One entrypoint. Thin Linear glue. Subagents only when they pay off. No lifecycle OS.
+
+```text
+  /blade plan    /blade build    /blade ship    /blade release
+```
 
 ---
 
-## Why blade?
+## What it is
 
-Most AI “workflows” either:
-
-- do **nothing structured** (vibes-only chat), or  
-- do **everything** (ledgers, worktrees for every phase, dual-domain routers, novel-length plans).
-
-Blade sits in the cut:
-
-| Heavy lifecycle plugins | **blade** |
+| You type | What happens |
 |---|---|
-| Ledgers, thoughts/, multi-agent OS | Chat + Linear + PR |
-| Always-on ceremony | Right-size: one-liner → just do it |
-| Ship = “open a PR maybe” | Ship = **preflight → PR → tend CI/review** |
-| Merge mixed into ship | **Ship opens; release lands** |
+| `/blade plan …` | Research, options, short plan — waits for approval |
+| `/blade build …` | Implements (scout/critic only when useful) |
+| `/blade ship` | Preflight → open PR → **tend** CI & review until healthy |
+| `/blade release` | Merge + Linear Done — only when you say so |
 
 ```text
   idea ──► plan ──► build ──► review ──► ship ──► release
-            │         │          │         │         │
-         chat only   code     critic    PR+tend    merge
-         (approve)           (block?)   (watch)    (Done)
+                      │                    │
+                   code lands         PR + tend
 ```
+
+---
+
+## Why it exists
+
+Most AI workflows either freestyle with no ship discipline, or bury you in ceremony (ledgers, always-on worktrees, dual routers, novel-length plans).
+
+Blade aims for the middle:
+
+| Heavy workflow plugins | **blade** |
+|---|---|
+| Ledgers / thoughts/ / multi-agent OS | Chat + Linear + PR |
+| Plan files by default | Plan in chat; build after you approve |
+| Ship ≈ open a PR and leave | Ship = **preflight + open + tend** |
+| Merge mixed into ship | Ship opens; **release** merges |
+| Many entrypoints | **`/blade <verb>`** |
+
+**Right-size:** typo → just fix. Multi-area → plan first. Push / PR / merge / Done → always confirm.
 
 ---
 
 ## Install
 
-**Requires:** [Grok](https://x.ai) + Linear MCP already configured (blade does not bundle Linear auth).
+**Requires:** [Grok](https://x.ai) and a Linear MCP already configured (blade does not own Linear auth).
 
 ```bash
-# from a clone
 git clone https://github.com/volpe/blade.git ~/dev/blade
 grok plugin install ~/dev/blade --trust
 grok plugin enable blade
@@ -55,168 +76,168 @@ grok plugin enable blade
 
 Reload plugins (`r` in `/plugins`, or restart Grok), then:
 
-```bash
-grok plugin details blade
-# in chat:
+```text
 /blade help
 ```
 
 ```bash
-# uninstall
 grok plugin uninstall blade
 ```
 
 ---
 
-## 60-second tour
+## Quick examples
 
-### Fix something small
+Opinionated style: **one command**, verb as the first word.
+
+### Small fix
 
 ```text
-you   →  /blade-build flaky timeout in retry helper
-blade →  implements + runs the smallest check
-you   →  /blade-ship
-blade →  preflight body/labels → asks once → PR → tends CI/comments
-you   →  /blade-release          # when green
+you    /blade build flaky timeout in the retry helper
+blade  implements · runs the smallest real check
+you    /blade ship
+blade  preflight · asks once · PR · tends CI / comments
+you    /blade release
+blade  merge · Linear Done
 ```
 
-### Bigger feature (with a ticket)
+### Feature with a ticket
 
 ```text
-you   →  /blade-plan ENG-1234 add export CSV for invoices
-blade →  scouts the code, options, phased plan in chat
-you   →  approve
-you   →  /blade-build
-blade →  implements against the plan
-you   →  /blade-review           # optional; ship runs critic if needed
-you   →  /blade-ship
-blade →  template + labels + open + watch until healthy
-you   →  /blade-release
+you    /blade plan ENG-1234 export invoices as CSV
+blade  scouts · options · phased plan in chat
+you    yes
+you    /blade build
+blade  implements against the plan
+you    /blade review          # optional — ship runs critic if needed
+you    /blade ship
+blade  template + labels + open + watch until healthy
+you    /blade release
 ```
 
-### Debug when prod is on fire
+### Production incident
 
 ```text
-you   →  /blade-debug users see 500 on /checkout after deploy
-blade →  hypotheses → evidence → root cause → fix
-you   →  /blade-test && /blade-ship
+you    /blade debug 500s on /checkout after the last deploy
+blade  hypotheses → evidence → root cause → fix
+you    /blade test
+you    /blade ship
+```
+
+### New initiative
+
+```text
+you    /blade project multi-region failover for billing
+blade  Linear project · milestones · vertically sliced cards
+you    /blade card refine the “shadow traffic” slice
+you    /blade plan <that card>
+# then build → ship → release as above
 ```
 
 ---
 
 ## Commands
 
-Route with `/blade <verb> …` or call `/blade-<verb>` directly.
+```text
+/blade <verb> [args…]
+```
 
-| Command | What it does |
+| Verb | Purpose |
 |---|---|
-| `/blade` | Help + route by first word |
-| `/blade-project` | Initiative → Linear project + milestones + cards |
-| `/blade-card` | Draft or refine **one** Linear issue |
-| `/blade-plan` | Research + short plan in chat — **approve before build** |
-| `/blade-build` | Implement from ticket / plan / freeform |
-| `/blade-debug` | Hypothesis → evidence → root cause → fix |
-| `/blade-review` | Review working tree / branch / PR |
-| `/blade-polish` | Three rounds of UI/code polish on the current change |
-| `/blade-test` | Decide verification, run it, report evidence |
-| `/blade-ship` | Preflight → commit → push → PR → Linear → **tend** |
-| `/blade-release` | Merge ready PR → delete branch → Linear **Done** |
+| `help` | Verb table |
+| `project` | Initiative → Linear project + milestones + cards |
+| `card` | Draft or refine **one** Linear issue |
+| `plan` | Research + short plan — **approve before build** |
+| `build` | Implement from ticket / plan / freeform |
+| `debug` | Hypothesis → evidence → root cause → fix |
+| `review` | Critic pass on tree / branch / PR |
+| `polish` | Three rounds of polish on the current change |
+| `test` | Decide verification · run it · report evidence |
+| `ship` | Preflight → PR → **tend** CI & review |
+| `release` | Merge ready PR → delete branch → Linear **Done** |
+
+Hyphen forms (`/blade-plan`, …) also work. Prefer `/blade <verb>`.
 
 ```text
-  /blade-project    big bets → many cards
-  /blade-card       one card, done right
-  /blade-plan       think before you swing
-  /blade-build      swing
-  /blade-debug      when the swing missed
-  /blade-review     critic's eye
-  /blade-polish     make it gleam
-  /blade-test       prove it
-  /blade-ship       leave the forge  ──►  PR + tend
-  /blade-release    land the blow    ──►  main + Done
+  project ── card ── plan ── build ── debug
+                ╲              │
+                 polish · test · review
+                              │
+                           ship ──► release
+                           (tend)
 ```
 
 ---
 
-## Ship is the party trick
+## Ship
 
-Most tools stop at “PR opened.” Blade **ships and tends**.
+Most tools open a PR and stop. Blade keeps going until the PR is healthy (or blocked).
 
 ```text
-                 /blade-ship
+                 /blade ship
                       │
         ┌─────────────┼─────────────┐
         ▼             ▼             ▼
-   preflight      open / update    tend (default)
-   • template     • push branch    • CI red? fix
-   • labels       • PR body        • review threads?
-   • critic       • Linear link    • worktree agent
-   • ask once     • labels           push + reply
+   preflight       open           tend (default)
+   template        push           CI failed → fix
+   labels          PR body        review threads → fix
+   critic          Linear         worktree agent
+   ask once        labels         push + reply
         │             │             │
-        └─────────────┴──────► healthy ──► /blade-release
+        └─────────────┴──────► healthy
+                                   │
+                                   ▼
+                            /blade release
 ```
 
-**Preflight**
+**Preflight** — local PR template → org `.github` → fallback · soft-propose labels · hard-ask when required · no silent rebase  
 
-- Resolves PR template: local `.github` → org `.github` repo → blade fallback  
-- Soft-proposes labels (Linear match / existing type labels); hard-asks when required  
-- Warns if base is behind; never silent-rebases  
+**Tend (default)** — one PR · fixes in a worktree · ≤3 code commits per cycle · substantive replies · **never merges**  
 
-**Tend (on by default)**
-
-- Watches the **one** PR you just opened  
-- Fixes CI failures and review comments in a **worktree-isolated** subagent  
-- Cap of 3 code-fix commits per cycle; real replies (no “will fix” platitudes)  
-- **Never merges** — that’s `/blade-release`  
-- Opt out: `/blade-ship ship-only` or say “open only”
+Skip tend: `/blade ship ship-only` (or say “open only”).
 
 ---
 
 ## Agents
 
-Spawned only when they pay off — not for every keystroke.
-
 | Agent | Role |
 |---|---|
-| `scout` | Read-only locate/trace → `file:line` map |
-| `critic` | Blocking / Should-fix / Nits + ship verdict |
+| `scout` | Read-only locate/trace · `file:line` maps |
+| `critic` | Blocking / Should-fix / Nits · ship verdict |
 
-Ship tend uses a worktree `general-purpose` agent so your main checkout stays clean.
+Ship tend uses a worktree `general-purpose` agent so the main checkout stays clean.
 
 ---
 
-## Design choices (the blade spine)
+## Design choices
 
-- **Linear** — your existing MCP; thin status/comments, no second auth path  
-- **Plans** — chat only by default (persist only if you ask)  
-- **Right-size** — typo? just fix. multi-area? plan first  
-- **Confirm the irreversible** — push, PR, merge, Linear Done always ask first  
-- **Durable surfaces** — chat + Linear + PR (no ledgers, no thoughts/ ceremony)  
-- **Output contract** — every verb ends **Done** / **Blocked** / **Needs you** + one next action  
+1. Right-size ceremony to the work  
+2. Plans stay in chat unless you ask to persist  
+3. Confirm push, PR, merge, and Linear Done  
+4. Durable surfaces: chat · Linear · PR (no ledgers)  
+5. Every verb ends **Done** / **Blocked** / **Needs you** + one next action  
 
 ```text
-  ┌──────────────────────────────────────────┐
-  │  sword, not tank                         │
-  │  confirm the cut, then swing clean       │
-  └──────────────────────────────────────────┘
+  sword, not tank — confirm the irreversible, then ship
 ```
 
 ---
 
-## Example: end-to-end in chat
+## End-to-end session
 
 ```text
-$ /blade-plan add rate limiting to public API
+$ /blade plan add rate limiting to the public API
 
 ## Goal
-Protect public endpoints from abuse without locking legit clients out.
+Protect public endpoints without locking out real clients.
 
 ## Approach
-Token bucket middleware on the edge router; config via env.
+Token bucket on the edge router; limits via env.
 
 ## Phases
 1. Middleware + tests
-2. Wire default limits + metrics
-3. Docs + ship
+2. Defaults + metrics
+3. Docs · ship
 
 Needs you — approve / adjust / kill?
 ```
@@ -224,27 +245,34 @@ Needs you — approve / adjust / kill?
 ```text
 $ yes
 
-$ /blade-build
-# …implements, runs tests…
+$ /blade build
+# …implements · tests green…
 
-Done — rate limit middleware + unit tests green.
-Next: /blade-ship
+Done — rate limit middleware + unit tests.
+Next: /blade ship
 ```
 
 ```text
-$ /blade-ship
+$ /blade ship
 
-# preflight shows template, labels: enhancement, base up to date
+# preflight: template · labels: enhancement · base clean
 # propose: open PR + tend
 
 $ yes
 
-# push → PR #42 → tend watches CI
-# CI fails lint → worktree fix → push → green
-# reviewer asks for a comment → addressed in abc1234
+# push → PR #42
+# lint fails → worktree fix → push
+# review comment → addressed in abc1234 → reply with SHA
 
-Done — https://github.com/you/app/pull/42 healthy
-Next: /blade-release
+Done — PR #42 healthy.
+Next: /blade release
+```
+
+```text
+$ /blade release
+# checks green · merge · branch deleted · Linear Done
+
+Done.
 ```
 
 ---
@@ -254,33 +282,20 @@ Next: /blade-release
 ```text
 blade/
 ├── .grok-plugin/plugin.json
-├── agents/
-│   ├── scout.md
-│   └── critic.md
+├── agents/                 # scout, critic
 ├── skills/
-│   ├── blade/                 # hub + spine
-│   ├── blade-plan/
-│   ├── blade-build/
-│   ├── blade-ship/
-│   │   ├── SKILL.md
-│   │   └── references/        # preflight + tend recipes
-│   ├── blade-release/
-│   └── …                      # card, debug, review, polish, test, project
+│   ├── blade/              # hub + shared spine
+│   ├── blade-plan/ …       # verbs (routed by first word)
+│   └── blade-ship/
+│       ├── SKILL.md
+│       └── references/     # preflight + tend
 └── README.md
 ```
 
 ---
 
-## Philosophy in one line
-
-**Plan when it matters. Build on the main thread. Confirm the irreversible. Tend until green. Release on purpose.**
+**One command. Ten verbs. Plan when it matters. Confirm before you push. Tend until green. Release on purpose.**
 
 ```text
-     ⚔  blade  ·  v0.4  ·  ship sharp
+                    ⚔  刃  ⚔
 ```
-
----
-
-## License
-
-Use freely in your Grok setup. Contributions and forks welcome on the public repo.
