@@ -1,0 +1,9 @@
+{
+  "name": "blade",
+  "version": "0.4.0",
+  "description": "Lightweight product-engineering workflow for Grok: plan, build, debug, review, polish, test, ship (preflight + tend), release — with thin Linear glue and subagents only when they pay off.",
+  "author": {
+    "name": "volpe"
+  },
+  "keywords": ["workflow", "linear", "plan", "polish", "ship", "release", "subagents", "lightweight"]
+}
