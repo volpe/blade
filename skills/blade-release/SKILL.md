@@ -11,14 +11,13 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**.
+**Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
 
 **Ship vs release:** `/blade-ship` opens/updates a PR. **`/blade-release` merges that PR and closes the Linear card.** Do not open a new PR here.
 
 ## Hard rule
 
-**Always ask before merge and before setting Linear to Done.**  
-Present the plan (PR, merge method, checks status, Linear id + Done transition, branch delete) and wait for explicit yes. Never force-merge onto `main`/`master` without an extra explicit confirm.
+Present the plan (PR, merge method, checks status, Linear id + Done transition, branch delete) and wait for explicit yes. Extra explicit confirm to force-merge onto `main`/`master`.
 
 ## Resolve PR
 
@@ -45,7 +44,7 @@ Show and wait:
 - PR title + URL + base ← head
 - Merge method: prefer repo default (`gh pr merge` without forcing squash/rebase unless the user or repo clearly wants one)
 - Checks + review summary (one line each)
-- Linear: id, current status → **Done**, short comment (“Merged &lt;PR url&gt;”)
+- Linear: id, current status → **Done** (team’s real completed state), short comment with the merged PR URL
 - Branch cleanup: **delete remote head by default** (`gh pr merge --delete-branch`). Opt out only if the user says keep the branch.
 - Local cleanup (optional, offer in the plan): checkout base, pull, delete local head if it still exists
 
@@ -53,7 +52,7 @@ Show and wait:
 
 1. `gh pr merge <n> --delete-branch` (omit `--delete-branch` only if the user opted out).
 2. Confirm merged (`gh pr view --json state,mergedAt,url`).
-3. Linear: set status **Done** (use the team’s real Done/completed state name from the issue’s available states — do not invent labels). Comment with merge confirmation + PR link.
+3. Linear: set status **Done** (team’s real Done/completed state from the issue’s available states). Comment with merge confirmation + PR link.
 4. If local cleanup was approved: checkout base, pull, delete local head branch when safe.
 
 If Linear MCP is down: merge still runs; print the exact Linear writes for the user.
