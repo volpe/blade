@@ -11,12 +11,14 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Main thread for running checks and reporting. No strategy novels.
+**Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
+
+Main thread for running checks and reporting. No strategy novels. **Budget delta:** main-thread search only.
 
 ## Steps
 
 1. **Define “working”** — one short paragraph: observable truth for this change (from ticket, plan, or diff).
-2. **Locate coverage** — existing tests that touch the area; note gaps without boiling the ocean. If the area is unfamiliar, focused `scout`(s) (parallel for multi-package layouts). **Budget mode:** main-thread search only.
+2. **Locate coverage** — existing tests that touch the area; note gaps without boiling the ocean. If the area is unfamiliar, focused `blade:scout`(s) (parallel for multi-package layouts).
 3. **Run the smallest meaningful suite** — prefer targeted tests over full monorepo. Use project conventions (e.g. `nx affected`, package scripts).
 4. **Behavioral check** when unit/integration is insufficient — one command or manual probe that exercises the change.
 5. **Report evidence** — never claim a check that was not run.

@@ -12,33 +12,48 @@ disable-model-invocation: true
 
 Lightweight product-engineering workflow. Route by first word of `$ARGUMENTS`.
 
-| Verb | Skill to follow |
-|---|---|
-| `project` | `blade-project` |
-| `card` | `blade-card` |
-| `plan` | `blade-plan` |
-| `build` | `blade-build` |
-| `debug` | `blade-debug` |
-| `review` | `blade-review` |
-| `polish` | `blade-polish` |
-| `test` | `blade-test` |
-| `ship` | `blade-ship` |
-| `release` | `blade-release` |
-| empty / `help` | print the table above + one-line purpose each; stop |
+| Verb | Skill | Purpose |
+|---|---|---|
+| `project` | `blade-project` | Initiative → Linear project + cards |
+| `card` | `blade-card` | One Linear issue |
+| `plan` | `blade-plan` | Research + plan in chat |
+| `build` | `blade-build` | Implement |
+| `debug` | `blade-debug` | Hypothesis → fix |
+| `review` | `blade-review` | Critic on the diff |
+| `polish` | `blade-polish` | Three polish rounds |
+| `test` | `blade-test` | Smallest meaningful checks |
+| `ship` | `blade-ship` | Commit → preflight → PR → tend |
+| `release` | `blade-release` | Merge + Linear Done |
+| empty / `help` | — | Print this table; stop |
 
-Strip the verb from `$ARGUMENTS` and run that verb’s playbook exactly (same as invoking `/blade-<verb>`).
+Strip the verb from `$ARGUMENTS` and run that verb’s playbook exactly (same as invoking `/blade-<verb>`). From this skill’s directory, read `../blade-<verb>/SKILL.md`. Spine below is already in context for `/blade <verb>`.
 
 ---
 
 ## Shared spine (all blade verbs)
+
+Direct `/blade-<verb>`: from that skill’s directory, read `../blade/SKILL.md` unless this turn already includes this section.
 
 ### Linear
 
 - Use the **existing Linear MCP** already configured in Grok. Do not invent a second Linear path.
 - If a ticket id appears (args, branch name, commits, thread), **fetch it first** and treat it as intent.
 - Write back only what happened: status when stage clearly changes, short comment with outcome + links.
-- Never invent field values you did not read. Prefer update-over-guess.
+- Never invent field values you did not read. Prefer update-over-guess. Resolve status **names from the issue’s available states** — the table is intent, not labels.
 - If Linear MCP is unavailable: say so, continue the work, and print the intended Linear writes for the user.
+
+| Stage | Status (intent) |
+|---|---|
+| plan | no status change (optional short “plan ready” comment) |
+| build | started / In Progress |
+| ship | in review |
+| release | done — **ask first** |
+
+Progress statuses write without waiting. **Done** is irreversible: ask first.
+
+### Confirm the irreversible
+
+Always ask before: push, open/update a PR, merge, Linear Done. Never force-push shared branches. Never push to `main`/`master` or force-merge onto them without an extra explicit confirm.
 
 ### Right-size
 
@@ -47,8 +62,6 @@ Strip the verb from `$ARGUMENTS` and run that verb’s playbook exactly (same as
 | Typo / one-liner / obvious fix | Do it. Skip plan. |
 | Single coherent change, clear scope | Short plan in chat or none; build on main thread. |
 | Multi-area, unclear, or risky | `/blade-plan` → user approval → `/blade-build`. |
-
-If work fits **one card**, `/blade-project` must refuse project ceremony and offer `/blade-card`.
 
 ### Plans
 
@@ -61,22 +74,20 @@ If work fits **one card**, `/blade-project` must refuse project ceremony and off
 
 | Use subagents for | How |
 |---|---|
-| Locate / research legs | **N× `scout`** (or explore) in parallel — one focused mission each (entry points, patterns, tests, risks, auth, …). Read-only fan-out is unconstrained. |
-| Fat / multi-area implement | **One** `general-purpose` with a self-contained brief (or main thread). **Writers stay serial** on the shared checkout — never parallel implementers. Worktrees only for ship tend. |
-| Non-trivial review | `critic` (main context stays clean); security emphasis for auth/secrets/uploads/permissions |
+| Locate / research legs | **N× `blade:scout`** (else `explore`) in parallel — one focused mission each. Read-only fan-out is unconstrained. |
+| Fat / multi-area implement | **One** `general-purpose` with a self-contained brief (or main thread). **Writers stay serial** on the shared checkout — never parallel implementers. |
+| Non-trivial review | `blade:critic` (else from this file’s directory read `../../agents/critic.md` on the main thread); security emphasis for auth/secrets/uploads/permissions |
 | Ship tend (CI / review fixes) | **One** `general-purpose` + `isolation: "worktree"` |
 
-**Budget mode** — when the user signals constrained tokens/compute (`budget`, `cheap`, `constrained`, `token budget`, `main thread only`, `don’t spawn`): cap scouts at 1–2, prefer main thread, skip nice-to-have fan-out.
+**Budget mode** — when the user signals constrained tokens/compute (`budget`, `cheap`, `constrained`, `token budget`, `main thread only`, `don’t spawn`): cap scouts at 1–2, prefer main thread, skip nice-to-have fan-out. A verb may add a stricter delta (e.g. no scouts).
 
 **Still never spawn for:** pure Linear status, PR body from known facts, one-file edits you already understand, card prose with no codebase research.
-
-Prefer plugin `scout` / `critic` when present; else Grok `explore` / `plan` / `general-purpose`.
 
 ### Artifacts & resume
 
 - Default durable surfaces: **chat + Linear + PR**.
 - No ledgers, no `thoughts/` paths.
-- Worktrees only for **ship tend** (isolated writer). Everywhere else: main thread. Parallel **writers** are never allowed on the shared checkout; parallel **readers** (scouts/`critic`) are fine.
+- Worktrees only for **ship tend** (isolated writer). Everywhere else: main thread. Parallel **writers** are never allowed on the shared checkout; parallel **readers** (`blade:scout` / `blade:critic`) are fine.
 - Resume = re-read Linear (if any) + `git status` + recent commits + open PR.
 
 ### Output contract

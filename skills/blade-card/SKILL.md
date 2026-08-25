@@ -11,12 +11,14 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Main thread for prose and Linear writes. Spawn `scout` only when the card needs real file/system paths; skip pure product wording.
+**Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
+
+Main thread for prose and Linear writes. Spawn `blade:scout` only when the card needs real file/system paths; skip pure product wording. **Budget delta:** skip scouts.
 
 ## Steps
 
 1. Gather intent from `$ARGUMENTS`, the thread, and any named ticket (fetch via Linear MCP if an id is present).
-2. If Hints need accurate paths and they are unknown, focused `scout`(s). **Budget mode:** skip or 1.
+2. If Hints need accurate paths and they are unknown, focused `blade:scout`(s).
 3. Draft a **scannable** issue (create or update):
 
 ```markdown

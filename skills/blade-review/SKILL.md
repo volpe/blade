@@ -11,42 +11,14 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Prefer **`critic`** so main context stays clean. If blast radius is unclear, parallel focused `scout`s (callers, tests, auth) before or alongside critic. If `critic` is unavailable, same rubric on the main thread. **Budget mode:** critic only (or main-thread review).
+**Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
+
+Prefer **`blade:critic`** so main context stays clean. If blast radius is unclear, parallel focused `blade:scout`s (callers, tests, auth) before or alongside critic. If `blade:critic` is unavailable, from this skill’s directory read `../../agents/critic.md` and run that rubric on the main thread. **Budget delta:** critic only (or main-thread review).
 
 ## Scope
 
-- Default: working tree (`git diff`, staged, untracked).
-- PR number/URL → `gh pr diff`.
-- Branch → merge-base against main/master.
-- Honour an explicit range or path in `$ARGUMENTS`.
-- **Never** a silent empty review: if the resolved diff is empty but commits exist on the branch, say so and review the branch range.
-
-## Rubric (priority)
-
-1. Correctness  
-2. Security (auth, input, secrets, uploads)  
-3. Data/state / regressions  
-4. Clarity  
-5. Tests for the change  
-
-Style is nits only — never gates the verdict alone.
+Honour `$ARGUMENTS` (PR number/URL, branch, range, path). Diff-scope defaults live in critic — do not fork them here.
 
 ## Output
 
-```markdown
-## Review: <scope>
-
-### Blocking
-- `file:line` — problem + concrete fix
-
-### Should-fix
-- …
-
-### Nits
-- …
-
-### Verdict
-ready to ship | ship-with-fixes | needs-rework
-```
-
-End with **Done / Blocked / Needs you** + next action.
+Use the critic’s output shape (`Blocking` / `Should-fix` / `Nits` / verdict). End with **Done / Blocked / Needs you** + next action.

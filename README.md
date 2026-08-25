@@ -86,11 +86,11 @@ you   →  /blade-release          # when green
 
 ```text
 you   →  /blade-plan ENG-1234 add export CSV for invoices
-blade →  parallel scouts, options, phased plan in chat
+blade →  parallel `blade:scout`s, options, phased plan in chat
 you   →  approve
 you   →  /blade-build
 blade →  implements against the plan
-you   →  /blade-review           # optional; ship runs critic if needed
+you   →  /blade-review           # optional; ship runs blade:critic if needed
 you   →  /blade-ship
 blade →  template + labels + open + watch until healthy
 you   →  /blade-release
@@ -121,7 +121,7 @@ Route with `/blade <verb> …` or call `/blade-<verb>` directly.
 | `/blade-review` | Review working tree / branch / PR |
 | `/blade-polish` | Three rounds of UI/code polish on the current change |
 | `/blade-test` | Decide verification, run it, report evidence |
-| `/blade-ship` | Preflight → commit → push → PR → Linear → **tend** |
+| `/blade-ship` | Commit → preflight → push → PR → Linear → **tend** |
 | `/blade-release` | Merge ready PR → delete branch → Linear **Done** |
 
 ```text
@@ -148,11 +148,13 @@ Most tools stop at “PR opened.” Blade **ships and tends**.
                       │
         ┌─────────────┼─────────────┐
         ▼             ▼             ▼
-   preflight      open / update    tend (default)
-   • template     • push branch    • CI red? fix
-   • labels       • PR body        • review threads?
-   • critic       • Linear link    • worktree agent
-   • ask once     • labels           push + reply
+   before open      open / update      tend
+   • commit         • push           • CI red → fix
+   • preflight      • PR body        • review threads
+     template       • Linear link    • worktree agent
+     labels         • labels         • push + reply
+     critic
+     ask once
         │             │             │
         └─────────────┴──────► healthy ──► /blade-release
 ```
@@ -175,12 +177,12 @@ Most tools stop at “PR opened.” Blade **ships and tends**.
 
 ## Agents
 
-**Default: fan out readers.** Parallel scouts/`critic` when it cuts main-thread context — one focused mission per scout, no fixed cap. **Writers stay serial** on the shared checkout (one implementer or main thread). Throttle with **budget** / **cheap** / **main thread only** (1–2 scouts).
+**Default: fan out readers.** Parallel `blade:scout` / `blade:critic` when it cuts main-thread context — one focused mission per scout, no fixed cap. **Writers stay serial** on the shared checkout (one implementer or main thread). Throttle with **budget** / **cheap** / **main thread only** (1–2 scouts).
 
 | Agent | Role |
 |---|---|
-| `scout` | Read-only focused locate/trace → compact `file:line` map + hand-offs (spawn N in parallel) |
-| `critic` | Blocking / Should-fix / Nits + ship verdict |
+| `blade:scout` | Read-only focused locate/trace → compact `file:line` map + hand-offs (spawn N in parallel) |
+| `blade:critic` | Blocking / Should-fix / Nits + ship verdict |
 
 Ship tend uses a worktree `general-purpose` agent so the main checkout stays clean.
 
@@ -188,10 +190,10 @@ Ship tend uses a worktree `general-purpose` agent so the main checkout stays cle
 
 ## Design choices (the blade spine)
 
-- **Linear** — your existing MCP; thin status/comments, no second auth path  
+- **Linear** — your existing MCP; team’s real state names; started → in review → done (ask before Done)  
 - **Plans** — chat only by default (persist only if you ask)  
 - **Right-size** — typo? just fix. multi-area? plan first  
-- **Subagents** — unconstrained fan-out by default; **budget mode** on request  
+- **Subagents** — `blade:scout` / `blade:critic`; unconstrained fan-out by default; **budget mode** on request  
 - **Confirm the irreversible** — push, PR, merge, Linear Done always ask first  
 - **Durable surfaces** — chat + Linear + PR (no ledgers, no thoughts/ ceremony)  
 - **Output contract** — every verb ends **Done** / **Blocked** / **Needs you** + one next action  

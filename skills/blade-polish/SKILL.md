@@ -12,15 +12,15 @@ disable-model-invocation: true
 
 Request: **$ARGUMENTS**
 
-Apply the **blade spine**. Main thread for apply loops. **Apply** improvements — do not only report them. Do not push, commit, or open a PR. If local conventions for the touched surface are unknown, a focused `scout` (patterns/tokens/helpers) before Round 1. **Budget mode:** main thread only.
+**Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
+
+**Apply** improvements — do not only report them. Do not push, commit, or open a PR.
+
+Main thread for apply loops. Unknown local conventions → focused `blade:scout` before Round 1. **Budget delta:** main thread only.
 
 ## Scope
 
-- Default: working tree (`git diff`, staged, untracked).
-- PR number/URL → `gh pr diff` (apply polish to local files that match).
-- Branch → merge-base against main/master.
-- Honour an explicit range or path in `$ARGUMENTS`.
-- **Never** a silent empty polish: if the resolved diff is empty but commits exist on the branch, say so and polish the branch range.
+Same resolution as `../../agents/critic.md` (from this skill’s directory). Apply to the **local** files on those paths — `gh pr diff` is the read target, not the write target. Never a silent empty polish: if the resolved diff is empty but commits exist on the branch, say so and polish the branch range.
 
 ## Guardrails
 
