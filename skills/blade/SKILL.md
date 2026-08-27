@@ -57,16 +57,19 @@ Always ask before: push, open/update a PR, merge, Linear Done. Never force-push 
 
 ### Right-size
 
+Ceremony only — when to plan vs just build. Do not recut the product to fit a smaller row.
+
 | Size | Ceremony |
 |---|---|
 | Typo / one-liner / obvious fix | Do it. Skip plan. |
-| Single coherent change, clear scope | Short plan in chat or none; build on main thread. |
+| Single coherent change, clear scope | Plan in chat or none; build on main thread. |
 | Multi-area, unclear, or risky | `/blade-plan` → user approval → `/blade-build`. |
 
 ### Plans
 
 - **Chat only by default.** Do not write plan files unless the user asks or explicitly wants resume-later docs.
 - Optional: append a short plan summary to the Linear issue only if the user asks.
+- How to size a plan (keep the Goal, phase if large, later phases optional) lives in `/blade-plan`.
 
 ### Subagents
 

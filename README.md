@@ -115,7 +115,7 @@ Route with `/blade <verb> …` or call `/blade-<verb>` directly.
 | `/blade` | Help + route by first word |
 | `/blade-project` | Initiative → Linear project + milestones + cards |
 | `/blade-card` | Draft or refine **one** Linear issue |
-| `/blade-plan` | Research + short plan in chat — **approve before build** |
+| `/blade-plan` | Research + plan in chat — **approve before build** |
 | `/blade-build` | Implement from ticket / plan / freeform |
 | `/blade-debug` | Hypothesis → evidence → root cause → fix |
 | `/blade-review` | Review working tree / branch / PR |
@@ -191,8 +191,8 @@ Ship tend uses a worktree `general-purpose` agent so the main checkout stays cle
 ## Design choices (the blade spine)
 
 - **Linear** — your existing MCP; team’s real state names; started → in review → done (ask before Done)  
-- **Plans** — chat only by default (persist only if you ask)  
-- **Right-size** — typo? just fix. multi-area? plan first  
+- **Plans** — chat only by default (persist only if you ask). Keep the Goal; if it's a lot, more phases (later ones optional)  
+- **Right-size** — typo? just fix. multi-area? plan first. Ceremony, not a smaller product  
 - **Subagents** — `blade:scout` / `blade:critic`; unconstrained fan-out by default; **budget mode** on request  
 - **Confirm the irreversible** — push, PR, merge, Linear Done always ask first  
 - **Durable surfaces** — chat + Linear + PR (no ledgers, no thoughts/ ceremony)  
@@ -221,18 +221,20 @@ Token bucket middleware on the edge router; config via env.
 ## Phases
 1. Middleware + tests
 2. Wire default limits + metrics
-3. Docs + ship
 
-Needs you — approve / adjust / kill?
+## Optional later
+3. Remaining public routes + docs
+
+Needs you — approve all / approve phases 1–N / adjust / kill?
 ```
 
 ```text
-$ yes
+$ approve all
 
 $ /blade-build
 # …implements, runs tests…
 
-Done — rate limit middleware + unit tests green.
+Done — rate limit middleware, default limits, remaining routes; tests green.
 Next: /blade-ship
 ```
 
