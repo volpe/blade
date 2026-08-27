@@ -14,11 +14,11 @@ Request: **$ARGUMENTS**
 
 **Load spine:** from this skill’s directory, read `../blade/SKILL.md` unless this turn already includes **Shared spine**.
 
-Prefer the **smallest correct change**.
+Prefer the **smallest correct change** for the approved work (code shape, not a smaller product).
 
 ## Steps
 
-1. **Load intent** — Linear ticket if present; approved plan from thread; else `$ARGUMENTS`.
+1. **Load intent** — If the thread has an approved plan, implement **those phases**. A Linear ticket is context and status writes, not a license to expand or recut. Else Linear ticket if present; else `$ARGUMENTS`.
 2. **If no plan and work is multi-area/unclear** — stop and run `/blade-plan` first (or say so and ask).
 3. **Touch points unclear?** — parallel `blade:scout`s for the legs you need, then implement. Skip if the plan already lists files. **Budget delta:** skip scouts or use one.
 4. **Implement**
