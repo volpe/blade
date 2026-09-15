@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade"
+  short_description: "Lightweight product-engineering workflow hub. Route Blade requests to project, card, plan, build, de"
+policy:
+  allow_implicit_invocation: false

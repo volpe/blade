@@ -1,0 +1,16 @@
+{
+  "name": "blade",
+  "version": "0.6.1",
+  "description": "Product and engineering workflows with task-specific expert teams for Claude Code.",
+  "author": {
+    "name": "volpe"
+  },
+  "repository": "https://github.com/volpe/blade",
+  "keywords": [
+    "workflow",
+    "team",
+    "experts",
+    "engineering",
+    "research"
+  ]
+}

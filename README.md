@@ -1,293 +1,125 @@
-# blade
+# Blade
 
 ```text
-          ░▒▓█  B L A D E  █▓▒░
-     ─────────────────────────────────
-      ╱|、
-    (˚ˎ 。7     ship fast.
-     |、˜〵      stay sharp.
-     じしˍ,)ノ   no tank required.
+    \_________________________________________/
+       ____   __     ___    ____    ______
+      / __ ) / /    /   |  / __ \  / ____/
+     / __  |/ /    / /| | / / / / / __/
+    / /_/ // /___ / ___ |/ /_/ / / /___
+   /_____//_____//_/  |_/_____/ /_____/
+    /_________________________________________\
 ```
 
-**Lightweight product-engineering workflow for [Grok](https://x.ai).**  
-One sword, ten verbs — from Linear card to green PR without a lifecycle OS.
+Reusable product and engineering workflows plus a team of task-specific experts for **Codex, pi, Grok, and Claude Code**. Use a focused command for everyday engineering work, or assemble experts for development, research, analysis, writing, operations, and other tasks.
 
-> Not a tank. Not a second project manager.  
-> **Blade** is the PE loop you actually run every day: plan → build → review → ship → release.
+## Choose a host
 
----
+| Path | Installation | Team communication |
+|---|---|---|
+| [codex/](codex/README.md) | Codex skill plugin + local marketplace | Native collaboration; direct peer messages where exposed, otherwise coordinator relay |
+| [pi/](pi/README.md) | Pi package with prompts, skill, and team extension | Separate SDK sessions with peer messages |
+| [grok/](grok/README.md) | Grok plugin with skills and registered roles | Real subagents with coordinator-relayed messages |
+| [claude/](claude/README.md) | Claude Code plugin + local marketplace | Native subagents; direct messages where available, otherwise coordinator relay |
 
-## Why blade?
+Each path contains a self-contained generated package. Shared workflows and role instructions have one source; host adapters handle real tool differences. No provider, model defaults, credentials, or project settings are changed by building Blade.
 
-Most AI “workflows” either:
+For a local checkout at `~/dev/blade`:
 
-- do **nothing structured** (vibes-only chat), or  
-- do **everything** (ledgers, worktrees for every phase, dual-domain routers, novel-length plans).
+```sh
+# Codex
+codex plugin marketplace add ~/dev/blade/codex
+codex plugin add blade@blade
 
-Blade sits in the cut:
+# pi
+pi install ~/dev/blade/pi/blade
 
-| Heavy lifecycle plugins | **blade** |
-|---|---|
-| Ledgers, thoughts/, multi-agent OS | Chat + Linear + PR |
-| Always-on ceremony | Right-size: one-liner → just do it |
-| Ship = “open a PR maybe” | Ship = **preflight → PR → tend CI/review** |
-| Merge mixed into ship | **Ship opens; release lands** |
-
-```text
-  idea ──► plan ──► build ──► review ──► ship ──► release
-            │         │          │         │         │
-         chat only   code     critic    PR+tend    merge
-         (approve)           (block?)   (watch)    (Done)
-```
-
----
-
-## Install
-
-**Requires:** [Grok](https://x.ai) + Linear MCP already configured (blade does not bundle Linear auth).
-
-```bash
-# from a clone
-git clone https://github.com/volpe/blade.git ~/dev/blade
-grok plugin install ~/dev/blade --trust
+# Grok
+grok plugin install ~/dev/blade/grok/blade --trust
 grok plugin enable blade
+
+# Claude Code
+claude plugin marketplace add ~/dev/blade/claude
+claude plugin install blade@blade --scope user
 ```
 
-Reload plugins (`r` in `/plugins`, or restart Grok), then:
+Pick one host's instructions, then start or reload its session in **the project you want to work on**. The host guides cover updates, requirements, and removal. Existing root Grok/pi installs remain supported; remove the old install before switching to a dedicated path to avoid duplicate commands.
 
-```bash
-grok plugin details blade
-# in chat:
-/blade help
-```
+## Everyday workflows
 
-**Updating a path install:** `git -C ~/dev/blade pull`, then reload plugins (`r` in `/plugins`). If skills look stale, re-run `grok plugin install ~/dev/blade --trust` and `grok plugin enable blade`.
+Use `/blade <verb>` or `/blade-<verb>` in pi/Grok. In Codex, select the installed skill or use `$blade <verb>` / `$blade-<verb>`. In Claude Code, use `/blade:<verb>`, such as `/blade:team`, `/blade:build`, or `/blade:help`.
 
-```bash
-# uninstall
-grok plugin uninstall blade
-```
-
----
-
-## 60-second tour
-
-### Fix something small
-
-```text
-you   →  /blade-build flaky timeout in retry helper
-blade →  implements + runs the smallest check
-you   →  /blade-ship
-blade →  preflight body/labels → asks once → PR → tends CI/comments
-you   →  /blade-release          # when green
-```
-
-### Bigger feature (with a ticket)
-
-```text
-you   →  /blade-plan ENG-1234 add export CSV for invoices
-blade →  parallel `blade:scout`s, options, phased plan in chat
-you   →  approve
-you   →  /blade-build
-blade →  implements against the plan
-you   →  /blade-review           # optional; ship runs blade:critic if needed
-you   →  /blade-ship
-blade →  template + labels + open + watch until healthy
-you   →  /blade-release
-```
-
-### Debug when prod is on fire
-
-```text
-you   →  /blade-debug users see 500 on /checkout after deploy
-blade →  hypotheses → evidence → root cause → fix
-you   →  /blade-test && /blade-ship
-```
-
----
-
-## Commands
-
-Route with `/blade <verb> …` or call `/blade-<verb>` directly.
-
-| Command | What it does |
+| Verb | Purpose |
 |---|---|
-| `/blade` | Help + route by first word |
-| `/blade-project` | Initiative → Linear project + milestones + cards |
-| `/blade-card` | Draft or refine **one** Linear issue |
-| `/blade-plan` | Research + plan in chat — **approve before build** |
-| `/blade-build` | Implement from ticket / plan / freeform |
-| `/blade-debug` | Hypothesis → evidence → root cause → fix |
-| `/blade-review` | Review working tree / branch / PR |
-| `/blade-polish` | Three rounds of UI/code polish on the current change |
-| `/blade-test` | Decide verification, run it, report evidence |
-| `/blade-ship` | Commit → preflight → push → PR → Linear → **tend** |
-| `/blade-release` | Merge ready PR → delete branch → Linear **Done** |
+| `project` | Shape an initiative and its milestones/issues |
+| `card` | Draft or refine one issue |
+| `plan` | Research and propose a scoped approach |
+| `build` | Implement an approved or clear request |
+| `debug` | Find the cause, fix it, and verify |
+| `test` | Run the smallest meaningful checks |
+| `polish` | Improve the current UI/code without unrelated cleanup |
+| `review` | Review the actual changes and evidence |
+| `ship` | Prepare a PR, obtain required authority, open/update it, and tend checks/reviews |
+| `release` | Verify readiness and perform an authorized merge |
+| `team` | Assemble experts with task-specific purposes and viewpoints |
+| `help` | Show the commands |
+
+Linear is optional. Use existing integrations; unavailable remote access does not block local work. Ship opens and tends; release merges. Approval is scoped to the actual actions and honored across follow-up work. No command silently grants permission to publish, reply to people, or merge.
+
+## Work with the team
 
 ```text
-  /blade-project    big bets → many cards
-  /blade-card       one card, done right
-  /blade-plan       think before you swing
-  /blade-build      swing
-  /blade-debug      when the swing missed
-  /blade-review     critic's eye
-  /blade-polish     make it gleam
-  /blade-test       prove it
-  /blade-ship       leave the forge  ──►  PR + tend
-  /blade-release    land the blow    ──►  main + Done
+# pi or Grok:
+/blade-team Deliver, guided: add CSV export for filtered invoices
+
+Codex:
+$blade-team Deliver, guided: add CSV export for filtered invoices
+
+Claude Code:
+/blade:team Deliver, guided: add CSV export for filtered invoices
 ```
 
----
+The main agent selects a proportionate team for the outcome, complexity, and risks of your request. **There is no fixed roster.** Every expert has a charter defining its purpose, viewpoint, key questions, expected evidence, and decision boundaries.
 
-## Ship is the party trick
+- **Product feature:** product, architecture, UX, implementation, testing, and review expertise; add pairing, polish, documentation, or release ownership when useful.
+- **Database migration:** data-integrity, query-performance, migration, and security expertise according to the actual risks.
+- **Business brief:** domain research, analysis, editing, and independent methods review.
 
-Most tools stop at “PR opened.” Blade **ships and tends**.
+Existing product/engineering role cards remain reusable templates. Custom experts use a generic card plus their task charter. The coordinator covers outcome ownership, production, verification, and independent review without assigning a separate worker to every responsibility. Compatible assignments may be combined; authors cannot independently approve their own work. New evidence can lead to added, specialized, combined, or retired experts, with the reasons and handoffs recorded.
+
+Two independent choices control the work:
+
+- **Explore / Deliver:** develop creative scope options, or protect the agreed scope.
+- **Guided / autonomous through a boundary:** pause at applicable scope, design/approach, delivery, and release checkpoints by default, or authorize continuation through named stages. For example: “Continue through opening the PR; stop before merging.”
+
+Agents exchange actual messages or explicit lead relays. When useful, pairing uses short implementation checkpoints and explicit driver handoffs. One writer owns a shared checkout; formal review stays independent. Acceptance evidence and sign-offs identify the candidate they cover. Only relevant workers run, within host limits. Non-code work uses appropriate source checks, calculations, artifact review, and handoffs; it does not require software-specific stages.
+
+Read the [team contract](team/workflow.md), [expert-selection guide](team/expert-selection.md), and [project profile](team/project-profile.md). Record product vision, local commands, conventions, and integration/approval choices in the adopting project's existing instructions. Team Steward can be assigned for independent process review. Reusable instruction changes require approval; ordinary task staffing and charters do not modify the installed library.
+
+## Maintain and share
 
 ```text
-                 /blade-ship
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
-   before open      open / update      tend
-   • commit         • push           • CI red → fix
-   • preflight      • PR body        • review threads
-     template       • Linear link    • worktree agent
-     labels         • labels         • push + reply
-     critic
-     ask once
-        │             │             │
-        └─────────────┴──────► healthy ──► /blade-release
+skills/                 Shared playbooks (source)
+agents/                 Scout and critic rubrics (source)
+team/                   Team contract, selection guide, profile, role templates (source)
+adapters/codex/         Codex adapter and manifest source
+adapters/pi/            Pi adapter and managed-session extension source
+adapters/grok/          Grok adapter source
+adapters/claude/        Claude Code adapter and manifest sources
+codex/plugins/blade/    Generated Codex plugin
+pi/blade/               Generated pi package
+grok/blade/             Generated Grok plugin
+claude/blade/           Generated Claude Code plugin
+scripts/build.mjs       Reproducible package builder
+tests/                  Packaging and pi runtime checks
 ```
 
-**Preflight**
+Edit sources, then:
 
-- Resolves PR template: local `.github` → org `.github` repo → blade fallback  
-- Soft-proposes labels (Linear match / existing type labels); hard-asks when required  
-- Warns if base is behind; never silent-rebases  
-
-**Tend (on by default)**
-
-- Watches the **one** PR you just opened  
-- Fixes CI failures and review comments in a **worktree-isolated** subagent  
-- Cap of 3 code-fix commits per cycle; real replies (no “will fix” platitudes)  
-- **Never merges** — that’s `/blade-release`  
-- Opt out: `/blade-ship ship-only` or say “open only”
-
----
-
-## Agents
-
-**Default: fan out readers.** Parallel `blade:scout` / `blade:critic` when it cuts main-thread context — one focused mission per scout, no fixed cap. **Writers stay serial** on the shared checkout (one implementer or main thread). Throttle with **budget** / **cheap** / **main thread only** (1–2 scouts).
-
-| Agent | Role |
-|---|---|
-| `blade:scout` | Read-only focused locate/trace → compact `file:line` map + hand-offs (spawn N in parallel) |
-| `blade:critic` | Blocking / Should-fix / Nits + ship verdict |
-
-Ship tend uses a worktree `general-purpose` agent so the main checkout stays clean.
-
----
-
-## Design choices (the blade spine)
-
-- **Linear** — your existing MCP; team’s real state names; started → in review → done (ask before Done)  
-- **Plans** — chat only by default (persist only if you ask). Keep the Goal; if it's a lot, more phases (later ones optional)  
-- **Right-size** — typo? just fix. multi-area? plan first. Ceremony, not a smaller product  
-- **Subagents** — `blade:scout` / `blade:critic`; unconstrained fan-out by default; **budget mode** on request  
-- **Confirm the irreversible** — push, PR, merge, Linear Done always ask first  
-- **Durable surfaces** — chat + Linear + PR (no ledgers, no thoughts/ ceremony)  
-- **Output contract** — every verb ends **Done** / **Blocked** / **Needs you** + one next action  
-
-```text
-  ┌──────────────────────────────────────────┐
-  │  sword, not tank                         │
-  │  confirm the cut, then swing clean       │
-  └──────────────────────────────────────────┘
+```sh
+npm run build
+npm test
 ```
 
----
+Build needs Node 22.19 or later and no npm dependencies. Generated files are committed for installation from a clone; `.blade-generated.json` records their ownership. Do not edit generated packages directly. Tests check stale output, portable package references, host discovery, and pi message/session behavior; see [validation notes](docs/validation.md) for what has and has not been exercised.
 
-## Example: end-to-end in chat
-
-```text
-$ /blade-plan add rate limiting to public API
-
-## Goal
-Protect public endpoints from abuse without locking legit clients out.
-
-## Approach
-Token bucket middleware on the edge router; config via env.
-
-## Phases
-1. Middleware + tests
-2. Wire default limits + metrics
-
-## Optional later
-3. Remaining public routes + docs
-
-Needs you — approve all / approve phases 1–N / adjust / kill?
-```
-
-```text
-$ approve all
-
-$ /blade-build
-# …implements, runs tests…
-
-Done — rate limit middleware, default limits, remaining routes; tests green.
-Next: /blade-ship
-```
-
-```text
-$ /blade-ship
-
-# preflight shows template, labels: enhancement, base up to date
-# propose: open PR + tend
-
-$ yes
-
-# push → PR #42 → tend watches CI
-# CI fails lint → worktree fix → push → green
-# reviewer asks for a comment → addressed in abc1234
-
-Done — https://github.com/you/app/pull/42 healthy
-Next: /blade-release
-```
-
----
-
-## Layout
-
-```text
-blade/
-├── .grok-plugin/plugin.json
-├── agents/
-│   ├── scout.md
-│   └── critic.md
-├── skills/
-│   ├── blade/                 # hub + spine
-│   ├── blade-plan/
-│   ├── blade-build/
-│   ├── blade-ship/
-│   │   ├── SKILL.md
-│   │   └── references/        # preflight + tend recipes
-│   ├── blade-release/
-│   └── …                      # card, debug, review, polish, test, project
-└── README.md
-```
-
----
-
-## Philosophy in one line
-
-**Plan when it matters. Build small on the main thread. Confirm the irreversible. Tend until green. Release on purpose.**
-
-```text
-     ⚔  blade  ·  v0.5  ·  ship sharp
-```
-
----
-
-## License
-
-Use freely in your Grok setup. Contributions and forks welcome on the public repo.
+Share the repository, or distribute the relevant self-contained host package. Keep all its files together. A model prompt guides behavior; host permissions and repository protections enforce technical boundaries. Monitoring beyond an active run requires an explicitly configured scheduler.

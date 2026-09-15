@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-plan"
+  short_description: "Research the codebase and produce an implementation plan in chat. Keep the user's goal; phase if lar"
+policy:
+  allow_implicit_invocation: false

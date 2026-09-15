@@ -1,0 +1,34 @@
+{
+  "name": "blade",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Blade workflows and task-specific expert teams for pi.",
+  "keywords": [
+    "pi-package",
+    "engineering",
+    "team"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "files": [
+    "prompts",
+    "skills",
+    "agents",
+    "team",
+    "extensions",
+    "runtime.md",
+    "README.md"
+  ],
+  "pi": {
+    "prompts": [
+      "./prompts"
+    ],
+    "skills": [
+      "./skills/blade-workflow"
+    ],
+    "extensions": [
+      "./extensions/blade-team/index.ts"
+    ]
+  }
+}

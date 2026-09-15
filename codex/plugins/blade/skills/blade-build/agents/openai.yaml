@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-build"
+  short_description: "Implement a change from a ticket, approved plan, or freeform request. Use for /blade-build. Parallel"
+policy:
+  allow_implicit_invocation: false

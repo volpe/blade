@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-polish"
+  short_description: "Review current changes and apply three rounds of polish — UI craft for visual diffs, code-quality re"
+policy:
+  allow_implicit_invocation: false

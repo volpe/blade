@@ -1,0 +1,24 @@
+{
+  "name": "blade",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Shared product-engineering workflows and adaptive expert teams for Codex, pi, Grok, and Claude Code.",
+  "author": "volpe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/volpe/blade.git"
+  },
+  "keywords": ["pi-package", "prompts", "workflow", "team", "codex", "grok", "claude"],
+  "files": ["prompts", "pi", "codex", "grok", "claude", "skills", "agents", "team", "adapters", "runtime.md", ".grok-plugin"],
+  "engines": { "node": ">=22.19.0" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node scripts/build.mjs --check && node --test"
+  },
+  "pi": {
+    "prompts": ["./prompts"],
+    "skills": ["./pi/skills"],
+    "extensions": ["./pi/blade/extensions/blade-team/index.ts"]
+  }
+}

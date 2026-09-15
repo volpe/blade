@@ -1,0 +1,12 @@
+{
+  "name": "blade",
+  "interface": { "displayName": "Blade" },
+  "plugins": [
+    {
+      "name": "blade",
+      "source": { "source": "local", "path": "./plugins/blade" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

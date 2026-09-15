@@ -1,0 +1,12 @@
+{
+  "name": "blade",
+  "description": "Blade workflows and task-specific expert teams for Claude Code.",
+  "owner": { "name": "volpe" },
+  "plugins": [
+    {
+      "name": "blade",
+      "source": "./blade",
+      "description": "Portable workflows and task-specific expert teams for Claude Code."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "blade",
+  "version": "0.6.0",
+  "description": "Product and engineering workflows with task-specific expert teams for Codex.",
+  "author": {
+    "name": "volpe"
+  },
+  "repository": "https://github.com/volpe/blade",
+  "keywords": [
+    "engineering",
+    "product",
+    "workflow",
+    "team"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Blade",
+    "shortDescription": "Work with experts selected for your task",
+    "longDescription": "Portable engineering workflows and adaptive expert teams for development, research, analysis, writing, and operations, with defined perspectives, guided checkpoints, and independent review.",
+    "developerName": "volpe",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use Blade to plan this change.",
+      "Use the Blade team in guided Deliver mode.",
+      "Use Blade to review the current changes."
+    ]
+  }
+}

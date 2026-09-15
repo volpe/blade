@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-ship"
+  short_description: "Ship current work: preflight (template, labels), commit, push, open/update PR, link Linear, then ten"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-release"
+  short_description: "Land a shipped PR after current checks and review pass, then perform authorized issue completion or "
+policy:
+  allow_implicit_invocation: false

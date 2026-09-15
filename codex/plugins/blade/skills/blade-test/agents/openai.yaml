@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-test"
+  short_description: "Decide what would prove the change works, run the smallest meaningful checks, report evidence. Use f"
+policy:
+  allow_implicit_invocation: false

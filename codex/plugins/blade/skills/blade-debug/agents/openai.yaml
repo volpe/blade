@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-debug"
+  short_description: "Debug with hypothesis → evidence → root cause → fix. Use for /blade-debug, failing tests, regression"
+policy:
+  allow_implicit_invocation: false

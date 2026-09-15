@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-review"
+  short_description: "Review the current diff, branch, or PR for correctness and risk. Use for /blade-review or before shi"
+policy:
+  allow_implicit_invocation: false

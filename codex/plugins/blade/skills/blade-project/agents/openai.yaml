@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-project"
+  short_description: "Break an initiative into a Linear project with milestones and vertically sliced cards. Use for /blad"
+policy:
+  allow_implicit_invocation: false

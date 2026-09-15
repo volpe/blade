@@ -1,0 +1,5 @@
+interface:
+  display_name: "blade-card"
+  short_description: "Draft or refine one Linear issue — problem, acceptance criteria, out of scope. Use for /blade-card, "
+policy:
+  allow_implicit_invocation: false

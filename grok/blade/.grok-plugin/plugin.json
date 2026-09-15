@@ -1,0 +1,18 @@
+{
+  "name": "blade",
+  "version": "0.6.0",
+  "description": "Product-engineering workflows and task-specific expert teams for Grok, with explicit scope and delivery checkpoints.",
+  "author": {
+    "name": "volpe"
+  },
+  "keywords": [
+    "workflow",
+    "linear",
+    "plan",
+    "polish",
+    "ship",
+    "release",
+    "subagents",
+    "lightweight"
+  ]
+}
